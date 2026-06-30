@@ -1,0 +1,142 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { SITE } from "@data/site";
+import { materials, type Material } from "@data/materials";
+
+export function getStaticPaths() {
+  return materials.map((m) => ({ params: { slug: m.slug }, props: { material: m } }));
+}
+
+const { material } = Astro.props as { material: Material };
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: `${material.name} — Piercova Materials Guide`,
+  description: material.subtitle,
+  url: `${SITE.url}/materials/${material.slug}`,
+  mainEntity: {
+    "@type": "Product",
+    name: material.name,
+    description: material.description,
+    category: "Body Piercing Jewelry",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Piercova", item: SITE.url },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Materials Guide",
+      item: `${SITE.url}/#materials`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: material.name,
+      item: `${SITE.url}/materials/${material.slug}`,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${material.name} — Materials Guide`}
+  description={material.subtitle}
+  ogType="article"
+  jsonld={[pageSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <h1>{material.name}</h1>
+      <p>{material.standard}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content">
+      <p class="intro">{material.subtitle}</p>
+      <p>{material.description}</p>
+
+      <h2>Biocompatibility</h2>
+      <p>{material.biocompatibility}</p>
+
+      <h2>Nickel Content</h2>
+      <p>{material.nickelContent}</p>
+
+      <h2>Durability</h2>
+      <p>{material.durability}</p>
+
+      <h2>Suitable For</h2>
+      <ul>
+        {material.suitableFor.map((s) => <li>{s}</li>)}
+      </ul>
+
+      <h2>Available Finishes</h2>
+      <ul>
+        {material.colors.map((c) => <li>{c}</li>)}
+      </ul>
+
+      <h2>Care Instructions</h2>
+      <ul>
+        {material.care.map((c) => <li>{c}</li>)}
+      </ul>
+
+      <div class="info-box">
+        <strong>
+          {material.hypoallergenic
+            ? "Nickel-Free & Hypoallergenic"
+            : "Contains Nickel — Not Recommended for Nickel Allergies"}
+        </strong>
+        <p class="info-text">
+          {material.hypoallergenic
+            ? `This material contains 0% nickel by composition. Safe for individuals with nickel sensitivity.`
+            : `This material contains nickel in its alloy structure. While it is implant-grade and the nickel is chemically bound, individuals with known nickel allergies should choose titanium or gold instead.`}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .intro {
+    font-size: 1.125rem;
+    color: #d0d0d0;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+  .content h2 {
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+  }
+  .content p,
+  .content li {
+    color: #c0c0c0;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  .info-box {
+    margin-top: 2.5rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+  .info-box strong {
+    font-size: 0.9375rem;
+    color: var(--color-accent);
+  }
+  .info-text {
+    margin-top: 0.5rem;
+    font-size: 0.875rem !important;
+    color: var(--color-text-dim) !important;
+  }
+</style>

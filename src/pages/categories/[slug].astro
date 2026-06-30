@@ -1,0 +1,99 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { SITE } from "@data/site";
+import { categories, type Category } from "@data/products";
+
+export function getStaticPaths() {
+  return categories.map((c) => ({ params: { slug: c.slug }, props: { category: c } }));
+}
+
+const { category } = Astro.props as { category: Category };
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${category.name} — Piercova`,
+  description: category.description,
+  url: `${SITE.url}/categories/${category.slug}`,
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: category.popularStyles.map((style, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: style,
+    })),
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Piercova", item: SITE.url },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Categories",
+      item: `${SITE.url}/#categories`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: category.name,
+      item: `${SITE.url}/categories/${category.slug}`,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={category.name}
+  description={category.description}
+  ogType="website"
+  jsonld={[pageSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <h1>{category.name}</h1>
+      <p>{category.description}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content">
+      <p>{category.longDescription}</p>
+
+      <h2>Suitable Materials</h2>
+      <ul>
+        {category.suitableMaterials.map((m) => <li>{m}</li>)}
+      </ul>
+
+      <h2>Popular Styles</h2>
+      <ul>
+        {category.popularStyles.map((s) => <li>{s}</li>)}
+      </ul>
+
+      <h2>Aftercare & Healing</h2>
+      <ul>
+        {category.care.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .content h2 {
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+  }
+  .content p,
+  .content li {
+    color: #c0c0c0;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+</style>

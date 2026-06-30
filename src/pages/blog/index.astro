@@ -1,0 +1,120 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { SITE } from "@data/site";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Piercova Blog",
+  description:
+    "Piercova — implant-grade body piercing jewelry blog. Material science, aftercare guides, industry standards, and piercing education.",
+  url: `${SITE.url}/blog`,
+  blogPost: posts.map((p, i) => ({
+    "@type": "BlogPosting",
+    headline: p.data.title,
+    description: p.data.description,
+    url: `${SITE.url}/blog/${p.slug}`,
+    datePublished: p.data.date.toISOString(),
+    author: { "@type": "Organization", name: p.data.author },
+    position: i + 1,
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Piercova", item: SITE.url },
+    { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE.url}/blog` },
+  ],
+};
+---
+
+<BaseLayout
+  title="Blog"
+  description="Piercova blog — implant-grade body piercing jewelry education. Material science, aftercare guides, industry standards, and piercing advice."
+  jsonld={[blogSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Blog</h1>
+      <p>Material science, aftercare, and piercing education</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container blog-list">
+      {posts.map((post) => (
+        <article class="blog-card">
+          <time datetime={post.data.date.toISOString()}>
+            {post.data.date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+          <h2>
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+          </h2>
+          <p>{post.data.description}</p>
+          <div class="blog-tags">
+            {post.data.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .blog-card {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .blog-card time {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+  }
+  .blog-card h2 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+  }
+  .blog-card h2 a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .blog-card h2 a:hover {
+    color: var(--color-accent);
+  }
+  .blog-card p {
+    font-size: 0.9375rem;
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin: 0.5rem 0;
+  }
+  .blog-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .tag {
+    font-size: 0.6875rem;
+    color: var(--color-accent);
+    background: rgba(201, 168, 124, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 3px;
+  }
+</style>

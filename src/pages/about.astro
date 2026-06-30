@@ -1,0 +1,92 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { SITE } from "@data/site";
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: `About ${SITE.name}`,
+  description:
+    "Piercova is an implant-grade body piercing jewelry brand based in Yiwu, China. All jewelry manufactured to ASTM F136, ASTM F138, 925 Sterling Silver, and 14K Gold standards.",
+  url: `${SITE.url}/about`,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Piercova", item: SITE.url },
+    { "@type": "ListItem", position: 2, name: "About", item: `${SITE.url}/about` },
+  ],
+};
+---
+
+<BaseLayout
+  title="About Piercova"
+  description="About Piercova — implant-grade body piercing jewelry. ASTM F136 Titanium, ASTM F138 Surgical Steel, 925 Sterling Silver, 14K Solid Gold. Based in Yiwu, China."
+  jsonld={[aboutSchema, breadcrumbSchema]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <h1>About Piercova</h1>
+      <p>Implant-grade standards. No compromises.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content">
+      <h2>Our Mission</h2>
+      <p>
+        Piercova exists to make implant-grade body jewelry accessible. We believe that everyone — regardless of budget — deserves jewelry that is safe, biocompatible, and manufactured to verifiable standards. No mystery metals. No vague "surgical steel" without traceability. Every piece we sell is accompanied by the ASTM standard it meets.
+      </p>
+
+      <h2>What "Implant-Grade" Means</h2>
+      <p>
+        "Implant-grade" is not a marketing term — it is a legal and technical standard defined by ASTM International (formerly the American Society for Testing and Materials). For a material to be called implant-grade, the material, manufacturing process, and final product must conform to specifications written for medical implants. Our ASTM F136 titanium, for example, is chemically identical to the titanium alloy used in hip replacements and dental implants. Our ASTM F138 surgical steel is vacuum-melted to eliminate impurities — the same process used for bone screws and orthopedic fixation devices.
+      </p>
+      <p>
+        When you buy implant-grade, you are buying a material whose composition, mechanical properties, and biocompatibility are independently verifiable against a published standard. When a product says "surgical steel" without an ASTM number, there is no way to verify what it actually contains.
+      </p>
+
+      <h2>Our Standards</h2>
+      <ul>
+        <li><strong>ASTM F136</strong> — Implant-grade titanium alloy (Ti-6Al-4V ELI). Nickel-free. Used in surgical implants.</li>
+        <li><strong>ASTM F138</strong> — Implant-grade 316LVM stainless steel. Vacuum-melted for purity. Used in orthopedic devices.</li>
+        <li><strong>925 Sterling Silver</strong> — 92.5% pure silver. ASTM B700 standard. Nickel-free alloy.</li>
+        <li><strong>14K Solid Gold</strong> — 58.5% pure gold. Solid throughout, not plated or filled. Nickel-free options available.</li>
+      </ul>
+
+      <h2>Based in Yiwu, China</h2>
+      <p>
+        We operate from Yiwu, Zhejiang — one of the world's largest manufacturing and trade hubs. This location gives us direct access to precision manufacturing facilities and allows us to maintain rigorous quality control at every stage of production. We ship worldwide from our fulfillment center, with full tracking on every order.
+      </p>
+
+      <h2>Education First</h2>
+      <p>
+        We believe informed customers make better choices. Our materials guides, FAQ, and blog are written to help you understand what goes into your body — from alloy composition to aftercare protocols. We do not use pseudoscientific claims or marketing jargon. Every statement is backed by reference to an ASTM standard, peer-reviewed research, or established industry practice.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .content h2 {
+    margin-top: 2.5rem;
+  }
+  .content h2:first-child {
+    margin-top: 0;
+  }
+  .content p,
+  .content li {
+    color: #c0c0c0;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  .content strong {
+    color: #e0e0e0;
+  }
+</style>

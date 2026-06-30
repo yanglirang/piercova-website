@@ -1,0 +1,121 @@
+---
+import { SITE } from "@data/site";
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>{SITE.name.toUpperCase()}</h3>
+        <p>{SITE.tagline}</p>
+        <p class="footer-location">{SITE.location}</p>
+      </div>
+      <div class="footer-links">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="/categories/earrings">Earrings</a></li>
+          <li><a href="/categories/belly-rings">Belly Rings</a></li>
+          <li><a href="/categories/nose-rings">Nose Rings</a></li>
+          <li><a href="/categories/lip-rings">Lip Rings</a></li>
+          <li><a href="/categories/nipple-rings">Nipple Rings</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Materials</h4>
+        <ul>
+          <li><a href="/materials/titanium">ASTM F136 Titanium</a></li>
+          <li><a href="/materials/surgical-steel">ASTM F138 Surgical Steel</a></li>
+          <li><a href="/materials/sterling-silver">925 Sterling Silver</a></li>
+          <li><a href="/materials/14k-gold">14K Solid Gold</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="mailto:{SITE.email}">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #080808;
+    border-top: 1px solid #1a1a1a;
+    margin-top: 4rem;
+    padding: 3rem 0 1.5rem;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .footer-brand h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.5rem;
+  }
+  .footer-brand p {
+    color: #888;
+    font-size: 0.8125rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .footer-location {
+    margin-top: 0.5rem !important;
+    color: #666 !important;
+  }
+  .footer-links h4 {
+    color: #ccc;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.75rem;
+  }
+  .footer-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-links li {
+    margin-bottom: 0.375rem;
+  }
+  .footer-links a {
+    color: #777;
+    font-size: 0.8125rem;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-links a:hover {
+    color: #fff;
+  }
+  .footer-bottom {
+    border-top: 1px solid #111;
+    padding-top: 1.5rem;
+    text-align: center;
+  }
+  .footer-bottom p {
+    color: #555;
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
