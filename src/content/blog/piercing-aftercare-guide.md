@@ -1,4 +1,9 @@
 ---
+title: "The Complete Guide to Piercing Aftercare"
+description: "Clinical aftercare recommendations from the APP — what to do, what to avoid, and expected healing timelines by piercing location."
+date: 2025-09-24
+author: "Piercova"
+tags: ["aftercare", "healing", "guide"]
 AIGC:
     Label: "1"
     ContentProducer: 001191440300708461136T1XGW3

@@ -1,4 +1,9 @@
 ---
+title: "Titanium vs Surgical Steel: What's the Difference?"
+description: "ASTM standards, biocompatibility data, and why the alloy grade number is the only reliable indicator of implant-grade quality in body jewelry."
+date: 2025-09-18
+author: "Piercova"
+tags: ["materials", "titanium", "steel", "safety"]
 AIGC:
     Label: "1"
     ContentProducer: 001191440300708461136T1XGW3
